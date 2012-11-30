@@ -1,0 +1,4 @@
+# = Class: stoplight
+#
+class composer {
+}
