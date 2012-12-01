@@ -8,13 +8,17 @@
 # [*command_name*]
 #   The name of the composer executable.
 #
+# [*auto_update*]
+#   Whether to run `composer self-update`.
+#
 # == Example:
 #
 #   include composer
 #
 #   class { 'composer':
 #     'target_dir'   => '/usr/local/bin',
-#     'command_name' => 'composer'
+#     'command_name' => 'composer',
+#     'auto_update'  => true
 #   }
 #
 class composer (
@@ -55,8 +59,7 @@ class composer (
   if $auto_update {
     exec { 'composer-update':
       command => "${composer_command_name} self-update",
-      path    => '/usr/bin:/bin:/usr/sbin:/sbin',
-      cwd     => $composer_target_dir,
+      path    => "/usr/bin:/bin:/usr/sbin:/sbin:${composer_target_dir}",
       user    => 'root',
       require => Exec['composer-fix-permissions'],
     }

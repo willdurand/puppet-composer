@@ -70,7 +70,8 @@ describe 'composer', :type => :class do
 
     it { should contain_exec('composer-update') \
       .with_command('composer self-update') \
-      .with_user('root')
+      .with_user('root') \
+      .with_path('/usr/local/bin')
     }
   end
 end
