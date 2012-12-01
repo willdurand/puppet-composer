@@ -32,6 +32,13 @@ where to install Composer):
       target_dir   => '/usr/local/bin'
     }
 
+You can also auto update composer by using the `auto_update` parameter. This will
+update Composer **only** when you will run Puppet.
+
+    class { 'composer':
+        auto_update => true
+    }
+
 
 Running the tests
 -----------------

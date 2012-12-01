@@ -19,7 +19,8 @@
 #
 class composer (
   $target_dir   = 'UNDEF',
-  $command_name = 'UNDEF'
+  $command_name = 'UNDEF',
+  $auto_update  = false
 ) {
 
   include composer::params
@@ -49,5 +50,15 @@ class composer (
     user    => 'root',
     unless  => "test -x ${composer_target_dir}/${composer_command_name}",
     require => Exec['composer-install'],
+  }
+
+  if $auto_update {
+    exec { 'composer-update':
+      command => "${composer_command_name} self-update",
+      path    => '/usr/bin:/bin:/usr/sbin:/sbin',
+      cwd     => $composer_target_dir,
+      user    => 'root',
+      require => Exec['composer-fix-permissions'],
+    }
   }
 }
