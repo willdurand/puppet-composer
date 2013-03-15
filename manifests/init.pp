@@ -8,6 +8,9 @@
 # [*command_name*]
 #   The name of the composer executable.
 #
+# [*user*]
+#   The owner of the composer executable.
+#
 # [*auto_update*]
 #   Whether to run `composer self-update`.
 #
@@ -17,6 +20,7 @@
 #
 #   class { 'composer':
 #     'target_dir'   => '/usr/local/bin',
+#     'user'         => 'root',
 #     'command_name' => 'composer',
 #     'auto_update'  => true
 #   }

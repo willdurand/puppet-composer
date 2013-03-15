@@ -74,4 +74,22 @@ describe 'composer', :type => :class do
       .with_path('/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin')
     }
   end
+
+  describe 'with a given user' do
+    let(:params) {{ :user => 'will' }}
+
+    it { should contain_exec('composer-install') \
+      .with_command('wget -O composer http://getcomposer.org/composer.phar') \
+      .with_user('will') \
+      .with_cwd('/usr/local/bin')
+    }
+
+    it { should contain_exec('composer-fix-permissions') \
+      .with_command('chmod a+x composer') \
+      .with_user('will') \
+      .with_cwd('/usr/local/bin')
+    }
+
+    it { should_not contain_exec('composer-update') }
+  end
 end
