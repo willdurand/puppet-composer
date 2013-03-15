@@ -36,7 +36,14 @@ You can also auto update composer by using the `auto_update` parameter. This wil
 update Composer **only** when you will run Puppet.
 
     class { 'composer':
-        auto_update => true
+      auto_update => true
+    }
+
+You can specify a particular `user` that will be the owner of the Composer
+executable:
+
+    class { 'composer':
+      user => 'foo',
     }
 
 
