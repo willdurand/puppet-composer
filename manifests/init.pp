@@ -24,6 +24,7 @@
 class composer (
   $target_dir   = 'UNDEF',
   $command_name = 'UNDEF',
+  $user         = 'UNDEF',
   $auto_update  = false
 ) {
 
@@ -39,11 +40,16 @@ class composer (
     default => $command_name
   }
 
+  $composer_user = $user ? {
+    'UNDEF' => $::composer::params::user,
+    default => $user
+  }
+
   exec { 'composer-install':
     command => "wget -O ${composer_command_name} ${::composer::params::phar_location}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     cwd     => $composer_target_dir,
-    user    => 'root',
+    user    => $composer_user,
     unless  => "test -f ${composer_target_dir}/${composer_command_name}",
   }
 
@@ -51,7 +57,7 @@ class composer (
     command => "chmod a+x ${composer_command_name}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     cwd     => $composer_target_dir,
-    user    => 'root',
+    user    => $composer_user,
     unless  => "test -x ${composer_target_dir}/${composer_command_name}",
     require => Exec['composer-install'],
   }
@@ -60,7 +66,7 @@ class composer (
     exec { 'composer-update':
       command => "${composer_command_name} self-update",
       path    => "/usr/bin:/bin:/usr/sbin:/sbin:${composer_target_dir}",
-      user    => 'root',
+      user    => $composer_user,
       require => Exec['composer-fix-permissions'],
     }
   }
