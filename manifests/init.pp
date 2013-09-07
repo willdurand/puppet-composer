@@ -49,12 +49,10 @@ class composer (
     default => $user
   }
 
-  exec { 'composer-install':
-    command => "wget -O ${composer_command_name} ${::composer::params::phar_location}",
-    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
-    cwd     => $composer_target_dir,
-    user    => $composer_user,
-    unless  => "test -f ${composer_target_dir}/${composer_command_name}",
+  wget::fetch { 'composer-install':
+    source      => $::composer::params::phar_location,
+    destination => "${composer_target_dir}/${composer_command_name}",
+    execuser    => $composer_user,
   }
 
   exec { 'composer-fix-permissions':
@@ -63,7 +61,7 @@ class composer (
     cwd     => $composer_target_dir,
     user    => $composer_user,
     unless  => "test -x ${composer_target_dir}/${composer_command_name}",
-    require => Exec['composer-install'],
+    require => Wget::Fetch['composer-install'],
   }
 
   if $auto_update {
