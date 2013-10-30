@@ -21,6 +21,13 @@ dependencies ([`puppet-wget`](https://github.com/maestrodev/puppet-wget)):
 
     git clone git://github.com/willdurand/puppet-composer.git modules/composer
 
+**Important:** the right `puppet-wget` module is
+[maestrodev/puppet-wget](https://github.com/maestrodev/puppet-wget). You should
+**not** use any other `puppet-wget` module. Example42's module won't work for
+instance. So, please, run the following command:
+
+    git clone git://github.com/maestrodev/puppet-wget.git modules/wget
+
 
 Usage
 -----
