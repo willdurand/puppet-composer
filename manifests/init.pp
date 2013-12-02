@@ -66,10 +66,11 @@ class composer (
 
   if $auto_update {
     exec { 'composer-update':
-      command => "${composer_command_name} self-update",
-      path    => "/usr/bin:/bin:/usr/sbin:/sbin:${composer_target_dir}",
-      user    => $composer_user,
-      require => Exec['composer-fix-permissions'],
+      command     => "${composer_command_name} self-update",
+      environment => [ "COMPOSER_HOME=${composer_target_dir}" ],
+      path        => "/usr/bin:/bin:/usr/sbin:/sbin:${composer_target_dir}",
+      user        => $composer_user,
+      require     => Exec['composer-fix-permissions'],
     }
   }
 }
