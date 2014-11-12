@@ -1,6 +1,6 @@
 {
   "name": "willdurand-composer",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": "William Durand",
   "license": "MIT",
   "summary": "This module installs Composer, a dependency manager for PHP.",
@@ -22,7 +22,6 @@
   ],
   "checksums": {
     "LICENSE": "8e55fce2ff4cd1331f7c6bc602fe7370",
-    "Modulefile": "0f2fe38b5f7914041e81573c0213ca2c",
     "README.md": "bd086566f845772c926144251c55c20d",
     "Rakefile": "a1a87b266213b03b33f5e006d4df7925",
     "manifests/init.pp": "55b84512cbf79fdb3a418d5cf5f422a1",
