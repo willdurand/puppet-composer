@@ -17,6 +17,22 @@
       "version_requirement": ">=1.2.0"
     }
   ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04",
+        "14.04"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
+  ],
   "types": [
 
   ],
