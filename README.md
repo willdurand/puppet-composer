@@ -16,7 +16,7 @@ running the following command:
 
     puppet module install willdurand/composer
 
-Otherwise, close this repository and make sure to install the proper
+Otherwise, clone this repository and make sure to install the proper
 dependencies ([`puppet-wget`](https://github.com/maestrodev/puppet-wget)):
 
     git clone git://github.com/willdurand/puppet-composer.git modules/composer
