@@ -32,7 +32,7 @@ instance. So, please, run the following command:
 Hiradata Config
 ---------------
 
-Example config:
+Example configuration using Hiradata style config:
 
 ```
 composer::user: 'vagrant'
