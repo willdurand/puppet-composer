@@ -66,6 +66,11 @@ class composer (
     destination => "${composer_target_dir}/${composer_command_name}",
   }
 
+#  exec { "composer-install-alternative-method":
+#    command => "php -r "readfile('https://getcomposer.org/installer');" | php -d allow_url_fopen=1 --install-dir=${composer_target_dir} --filename=${composer_command_name}",
+#    path => "${composer_target_dir}"
+#  }
+
   # apply user and group permissions to downloaded composer using native puppet File type
   file { "composer-fix-permissions":
     path      => "${composer_target_dir}/${composer_command_name}",
@@ -79,7 +84,7 @@ class composer (
   # run self update when requested
   if $auto_update {
     exec { 'composer-update':
-      command     => "${composer_command_name} self-update",
+      command     => "php -d allow_url_fopen=1 ${composer_target_dir}/${composer_command_name} self-update",
       environment => [ "COMPOSER_HOME=/tmp/" ],
       #
       path        => "/usr/bin:/bin:/usr/sbin:/sbin:${composer_target_dir}",
