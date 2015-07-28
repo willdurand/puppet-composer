@@ -72,20 +72,20 @@ class composer (
 #  }
 
   # apply user and group permissions to downloaded composer using native puppet File type
-  file { "composer-fix-permissions":
-    path      => "${composer_target_dir}/${composer_command_name}",
-    owner     => "${composer_user}",
-    group     => "${composer_group}",
-    mode      => 'a+x',
-    recurse   => false,
-    require   => Wget::Fetch['composer-install'],
+  file { 'composer-fix-permissions':
+    path    => "${composer_target_dir}/${composer_command_name}",
+    owner   => $composer_user,
+    group   => $composer_group,
+    mode    => 'a+x',
+    recurse => false,
+    require => Wget::Fetch['composer-install'],
   }
 
   # run self update when requested
   if $auto_update {
     exec { 'composer-update':
       command     => "php -d allow_url_fopen=1 ${composer_target_dir}/${composer_command_name} self-update",
-      environment => [ "COMPOSER_HOME=/tmp/" ],
+      environment => [ 'COMPOSER_HOME=/tmp/' ],
       #
       path        => "/usr/bin:/bin:/usr/sbin:/sbin:${composer_target_dir}",
       user        => $composer_user,
