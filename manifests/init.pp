@@ -60,17 +60,13 @@ class composer (
     default => $group
   }
 
-
-
-  notice("Composer: user===${composer_user}  command_name==${composer_command_name} target_dir==${composer_target_dir}")
-
-
+  # fetch composer into target_dir
   wget::fetch { 'composer-install':
     source      => $::composer::params::phar_location,
     destination => "${composer_target_dir}/${composer_command_name}",
   }
 
-  # apply user and group permissions to downloaded composer
+  # apply user and group permissions to downloaded composer using native puppet File type
   file { "composer-fix-permissions":
     path      => "${composer_target_dir}/${composer_command_name}",
     owner     => "${composer_user}",
@@ -80,10 +76,11 @@ class composer (
     require   => Wget::Fetch['composer-install'],
   }
 
+  # run self update when requested
   if $auto_update {
     exec { 'composer-update':
       command     => "${composer_command_name} self-update",
-      environment => [ "COMPOSER_HOME=/tmp/", "X1=${composer_target_dir}" ],
+      environment => [ "COMPOSER_HOME=/tmp/" ],
       #
       path        => "/usr/bin:/bin:/usr/sbin:/sbin:${composer_target_dir}",
       user        => $composer_user,
