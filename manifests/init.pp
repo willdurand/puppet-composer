@@ -64,6 +64,7 @@ class composer (
   wget::fetch { 'composer-install':
     source      => $::composer::params::phar_location,
     destination => "${composer_target_dir}/${composer_command_name}",
+    execuser    => 'root',
   }
 
 #  exec { "composer-install-alternative-method":
@@ -73,10 +74,11 @@ class composer (
 
   # apply user and group permissions to downloaded composer using native puppet File type
   file { 'composer-fix-permissions':
+    ensure  => present,
     path    => "${composer_target_dir}/${composer_command_name}",
     owner   => $composer_user,
     group   => $composer_group,
-    mode    => 'a+x',
+    mode    => 'a+rx',
     recurse => false,
     require => Wget::Fetch['composer-install'],
   }
