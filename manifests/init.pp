@@ -11,6 +11,9 @@
 # [*user*]
 #   The owner of the composer executable.
 #
+# [*group*]
+#   The group of the composer executable.
+#
 # [*auto_update*]
 #   Whether to run `composer self-update`.
 #
@@ -29,11 +32,14 @@ class composer (
   $target_dir   = 'UNDEF',
   $command_name = 'UNDEF',
   $user         = 'UNDEF',
+  $group        = 'UNDEF',
   $auto_update  = false
 ) {
 
   include composer::params
 
+
+  
   $composer_target_dir = $target_dir ? {
     'UNDEF' => $::composer::params::target_dir,
     default => $target_dir
@@ -49,28 +55,39 @@ class composer (
     default => $user
   }
 
+  $composer_group = $group ? {
+    'UNDEF' => $::composer::params::group,
+    default => $group
+  }
+
+
+
+  notice("Composer: user===${composer_user}  command_name==${composer_command_name} target_dir==${composer_target_dir}")
+
+
   wget::fetch { 'composer-install':
     source      => $::composer::params::phar_location,
     destination => "${composer_target_dir}/${composer_command_name}",
-    execuser    => $composer_user,
   }
 
-  exec { 'composer-fix-permissions':
-    command => "chmod a+x ${composer_command_name}",
-    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
-    cwd     => $composer_target_dir,
-    user    => $composer_user,
-    unless  => "test -x ${composer_target_dir}/${composer_command_name}",
-    require => Wget::Fetch['composer-install'],
+  # apply user and group permissions to downloaded composer
+  file { "composer-fix-permissions":
+    path      => "${composer_target_dir}/${composer_command_name}",
+    owner     => "${composer_user}",
+    group     => "${composer_group}",
+    mode      => 'a+x',
+    recurse   => false,
+    require   => Wget::Fetch['composer-install'],
   }
 
   if $auto_update {
     exec { 'composer-update':
       command     => "${composer_command_name} self-update",
-      environment => [ "COMPOSER_HOME=${composer_target_dir}" ],
+      environment => [ "COMPOSER_HOME=/tmp/", "X1=${composer_target_dir}" ],
+      #
       path        => "/usr/bin:/bin:/usr/sbin:/sbin:${composer_target_dir}",
       user        => $composer_user,
-      require     => Exec['composer-fix-permissions'],
+      require     => File['composer-fix-permissions'],
     }
   }
 }
