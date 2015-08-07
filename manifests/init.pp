@@ -61,7 +61,7 @@ class composer (
   }
 
   # common dependency
-  package { patch: 
+  package { 'patch':
     ensure => latest
   }
 
