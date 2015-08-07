@@ -49,6 +49,10 @@ class composer (
     default => $user
   }
 
+  package { patch: 
+    ensure => latest
+  }
+
   wget::fetch { 'composer-install':
     source      => $::composer::params::phar_location,
     destination => "${composer_target_dir}/${composer_command_name}",
