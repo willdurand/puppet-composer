@@ -16,7 +16,7 @@ running the following command:
 
     puppet module install willdurand/composer
 
-Otherwise, close this repository and make sure to install the proper
+Otherwise, clone this repository and make sure to install the proper
 dependencies ([`puppet-wget`](https://github.com/maestrodev/puppet-wget)):
 
     git clone git://github.com/willdurand/puppet-composer.git modules/composer
@@ -27,6 +27,19 @@ dependencies ([`puppet-wget`](https://github.com/maestrodev/puppet-wget)):
 instance. So, please, run the following command:
 
     git clone git://github.com/maestrodev/puppet-wget.git modules/wget
+
+
+Hiradata Config
+---------------
+
+Example configuration using Hiradata style config:
+
+```
+composer::user: 'vagrant'
+composer::group: 'vagrant'
+composer::target_dir: '/usr/local/bin/'
+composer::auto_update: true
+```
 
 
 Usage

@@ -13,8 +13,9 @@
 # It may be imported or inherited by other classes.
 #
 class composer::params {
-  $phar_location = 'http://getcomposer.org/composer.phar'
+  $phar_location = 'https://getcomposer.org/composer.phar'
   $target_dir    = '/usr/local/bin'
   $command_name  = 'composer'
   $user          = 'root'
+  $group         = 'root'
 }
