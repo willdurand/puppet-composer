@@ -1,5 +1,5 @@
 language: ruby
-
+sudo: required
 rvm:
   - 1.9.3
 

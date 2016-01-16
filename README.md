@@ -29,6 +29,19 @@ instance. So, please, run the following command:
     git clone git://github.com/maestrodev/puppet-wget.git modules/wget
 
 
+Hiradata Config
+---------------
+
+Example configuration using Hiradata style config:
+
+```
+composer::user: 'vagrant'
+composer::group: 'vagrant'
+composer::target_dir: '/usr/local/bin/'
+composer::auto_update: true
+```
+
+
 Usage
 -----
 
