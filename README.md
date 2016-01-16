@@ -58,6 +58,21 @@ executable:
       user => 'foo',
     }
 
+Handle dependency order
+-----------------
+
+Handle the PHP dependency with custom stages. Make composer wait for PHP. 
+
+    class { 'composer':
+      command_name => 'composer',
+      target_dir   => '/usr/local/bin', 
+      auto_update => true, 
+      stage => last,
+    }
+    stage { 'last': }
+    Stage['main'] -> Stage['last']
+
+Custom stages reference: http://docs.puppetlabs.com/puppet/3/reference/lang_run_stages.html
 
 Running the tests
 -----------------
