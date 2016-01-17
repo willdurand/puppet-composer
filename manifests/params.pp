@@ -17,4 +17,5 @@ class composer::params {
   $target_dir    = '/usr/local/bin'
   $command_name  = 'composer'
   $user          = 'root'
+  $version       = undef
 }

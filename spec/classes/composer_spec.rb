@@ -92,4 +92,14 @@ describe 'composer', :type => :class do
 
     it { should_not contain_exec('composer-update') }
   end
+
+  describe 'with a given version' do
+    let(:params) {{ :version => '1.0.0-alpha11' }}
+
+    it { should contain_wget__fetch('composer-install') \
+        .with_source('https://getcomposer.org/download/1.0.0-alpha11/composer.phar') \
+        .with_execuser('root') \
+        .with_destination('/usr/local/bin/composer')
+    }
+  end
 end
