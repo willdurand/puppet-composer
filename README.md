@@ -58,8 +58,14 @@ executable:
       user => 'foo',
     }
 
+It is also possible to specify a custom composer version:
+
+    class { 'composer':
+      version => '1.0.0-alpha11',
+    }
+
 Handle dependency order
------------------
+-----------------------
 
 Handle the PHP dependency with custom stages. Make composer wait for PHP. 
 

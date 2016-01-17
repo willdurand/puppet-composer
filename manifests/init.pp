@@ -14,6 +14,9 @@
 # [*auto_update*]
 #   Whether to run `composer self-update`.
 #
+# [*version*]
+#   Custom composer version
+#
 # == Example:
 #
 #   include composer
@@ -29,7 +32,8 @@ class composer (
   $target_dir   = 'UNDEF',
   $command_name = 'UNDEF',
   $user         = 'UNDEF',
-  $auto_update  = false
+  $auto_update  = false,
+  $version      = undef
 ) {
 
   include composer::params
@@ -49,8 +53,13 @@ class composer (
     default => $user
   }
 
+  $target = $version ? {
+    undef   => $::composer::params::phar_location,
+    default => "https://getcomposer.org/download/${version}/composer.phar"
+  }
+
   wget::fetch { 'composer-install':
-    source      => $::composer::params::phar_location,
+    source      => $target,
     destination => "${composer_target_dir}/${composer_command_name}",
     execuser    => $composer_user,
   }
