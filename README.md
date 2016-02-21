@@ -32,6 +32,8 @@ instance. So, please, run the following command:
 Usage
 -----
 
+### Installing composer
+
 Include the `composer` class:
 
     include composer
@@ -63,6 +65,49 @@ It is also possible to specify a custom composer version:
     class { 'composer':
       version => '1.0.0-alpha11',
     }
+
+### Dependency handling
+
+#### Single dependencies
+
+It is possible to install single dependencies locally or globally.
+
+``` puppet
+::composer::dependency { 'phpunit-global':
+  ensure          => present,
+  global          => true,
+  dependency_name => 'phpunit/phpunit',
+  constraint      => '^3.0',
+  options         => '--dry-run --optimize-autoloader',
+  user            => 'vagrant',
+  no_update       => false, # default
+  no_dev          => true,  # default
+}
+```
+
+Furthermore the installation into specific directories is also possible:
+
+``` puppet
+::composer::dependency { 'project-symfony':
+  ensure          => present,
+  dependency_name => 'symfony/symfony',
+  constraint      => '^3.0',
+  options         => '--dry-run --optimize-autoloader',
+  user            => 'vagrant',
+  cwd             => '/var/www/project',
+}
+```
+
+Uninstalling dependencies using the ``ensure`` parameter is also possible:
+
+``` puppet
+::composer::dependency { 'remove-symfony':
+  ensure          => absent,
+  dependency_name => 'symfony/symfony',
+  user            => 'vagrant',
+  cwd             => '/var/www/project',
+}
+```
 
 Handle dependency order
 -----------------------
