@@ -32,6 +32,8 @@ instance. So, please, run the following command:
 Usage
 -----
 
+### Install composer through puppet
+
 Include the `composer` class:
 
     include composer
@@ -63,6 +65,41 @@ It is also possible to specify a custom composer version:
     class { 'composer':
       version => '1.0.0-alpha11',
     }
+
+### Global composer configs
+
+One feature of composer are [global configuration parameters](https://getcomposer.org/doc/06-config.md#config).
+There are some important parameters like ``oauth_token`` for the GitHub API that should be configured through composer.
+
+``` puppet
+::composer::config { 'composer-vagrant-config':
+  ensure  => present,
+  user    => 'vagrant',
+  configs => {
+    'github-oauth' => {
+      'github.com' => 'token'
+    },
+    'process-timeout' => 500,
+    'http-basic' => {
+      'github.com' => ['username', 'password']
+    },
+  },
+}
+```
+
+And removing single params is also possible:
+
+``` puppet
+::composer::config { 'remove-platform':
+  ensure  => absent,
+  configs => ['process-timeout', 'github-oauth.github.com', 'http-basic.github.com'],
+  user    => 'vagrant',
+}
+```
+
+Note that the config items must be structured like when using the CLI. This means that when having a ``gitlab-oauth`` entry for site ``gitlab.org`` then the following key should be removed:
+
+    gitlab-oauth.gitlab.org
 
 Handle dependency order
 -----------------------
