@@ -107,13 +107,13 @@ The composer dependency resolver is quite complex and there are issues where the
 In order to keep the cache clean, it is possible to clear the cache via puppet:
 
 ``` puppet
-::composer::clearcache { 'user': }
+::composer::clear_cache { 'user': }
 ```
 
 As the home directory is configurable, it is possible to adjust the homedir to this resource:
 
 ``` puppet
-::composer::clearcache { 'user':
+::composer::clear_cache { 'user':
   home_dir => '/custom/home/dir',
 }
 ```

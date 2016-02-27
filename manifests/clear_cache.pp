@@ -1,4 +1,4 @@
-# = Define: composer::clearcache
+# = Define: composer::clear_cache
 #
 # == Parameters:
 #
@@ -7,9 +7,9 @@
 #
 # == Example:
 #
-# ::composer::clearcache { 'vagrant': }
+# ::composer::clear_cache { 'vagrant': }
 #
-define composer::clearcache($home_dir = undef) {
+define composer::clear_cache($home_dir = undef) {
   $home = $home_dir ? {
     undef   => "/home/${name}",
     default => $home_dir

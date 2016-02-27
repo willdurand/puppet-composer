@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'composer::clearcache', :type => :define do
-  let(:title) { 'composer::clearcache' }
+describe 'composer::clear_cache', :type => :define do
+  let(:title) { 'composer::clear_cache' }
 
   describe 'clear cache with default params' do
     let(:params) {{
