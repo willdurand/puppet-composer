@@ -11,7 +11,7 @@ describe 'composer::clearcache', :type => :define do
     it { should contain_exec('composer-clear-cache-vagrant') \
       .with_command('composer clear-cache') \
       .with_user('vagrant') \
-      .with_environment('/home/vagrant')
+      .with_environment('HOME=/home/vagrant')
     }
   end
 
@@ -24,7 +24,7 @@ describe 'composer::clearcache', :type => :define do
     it { should contain_exec('composer-clear-cache-vagrant') \
       .with_command('composer clear-cache') \
       .with_user('vagrant') \
-      .with_environment('/custom/home/vagrant')
+      .with_environment('HOME=/custom/home/vagrant')
     }
   end
 end
