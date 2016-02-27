@@ -101,6 +101,23 @@ Note that the config items must be structured like when using the CLI. This mean
 
     gitlab-oauth.gitlab.org
 
+### Clear cache
+
+The composer dependency resolver is quite complex and there are issues where the cache hides actual conflicts that make reproduction of such issues a lot harder.
+In order to keep the cache clean, it is possible to clear the cache via puppet:
+
+``` puppet
+::composer::clear_cache { 'user': }
+```
+
+As the home directory is configurable, it is possible to adjust the homedir to this resource:
+
+``` puppet
+::composer::clear_cache { 'user':
+  home_dir => '/custom/home/dir',
+}
+```
+
 Handle dependency order
 -----------------------
 
