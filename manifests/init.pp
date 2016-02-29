@@ -64,12 +64,10 @@ class composer (
     execuser    => $composer_user,
   }
 
-  exec { 'composer-fix-permissions':
-    command => "chmod a+x ${composer_command_name}",
-    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
-    cwd     => $composer_target_dir,
-    user    => $composer_user,
-    unless  => "test -x ${composer_target_dir}/${composer_command_name}",
+  file { "${composer_target_dir}/${composer_command_name}":
+    ensure  => file,
+    owner   => $composer_user,
+    mode    => '0755',
     require => Wget::Fetch['composer-install'],
   }
 
@@ -79,7 +77,7 @@ class composer (
       environment => [ "COMPOSER_HOME=${composer_target_dir}" ],
       path        => "/usr/bin:/bin:/usr/sbin:/sbin:${composer_target_dir}",
       user        => $composer_user,
-      require     => Exec['composer-fix-permissions'],
+      require     => File["${composer_target_dir}/${composer_command_name}"],
     }
   }
 }

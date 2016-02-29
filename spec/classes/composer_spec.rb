@@ -9,11 +9,10 @@ describe 'composer', :type => :class do
     .with_destination('/usr/local/bin/composer')
   }
 
-  it { should contain_exec('composer-fix-permissions') \
-    .with_command('chmod a+x composer') \
-    .with_user('root') \
-    .with_cwd('/usr/local/bin')
-  }
+    it { should contain_file('/usr/local/bin/composer') \
+      .with_owner('root') \
+      .with_mode('0755')
+    }
 
   it { should_not contain_exec('composer-update') }
 
@@ -26,10 +25,9 @@ describe 'composer', :type => :class do
       .with_destination('/usr/bin/composer')
     }
 
-    it { should contain_exec('composer-fix-permissions') \
-      .with_command('chmod a+x composer') \
-      .with_user('root') \
-      .with_cwd('/usr/bin')
+    it { should contain_file('/usr/bin/composer') \
+      .with_owner('root') \
+      .with_mode('0755')
     }
 
     it { should_not contain_exec('composer-update') }
@@ -44,10 +42,9 @@ describe 'composer', :type => :class do
       .with_destination('/usr/local/bin/c')
     }
 
-    it { should contain_exec('composer-fix-permissions') \
-      .with_command('chmod a+x c') \
-      .with_user('root') \
-      .with_cwd('/usr/local/bin')
+    it { should contain_file('/usr/local/bin/c') \
+      .with_owner('root') \
+      .with_mode('0755')
     }
 
     it { should_not contain_exec('composer-update') }
@@ -62,10 +59,9 @@ describe 'composer', :type => :class do
       .with_destination('/usr/local/bin/composer')
     }
 
-    it { should contain_exec('composer-fix-permissions') \
-      .with_command('chmod a+x composer') \
-      .with_user('root') \
-      .with_cwd('/usr/local/bin')
+    it { should contain_file('/usr/local/bin/composer') \
+      .with_owner('root') \
+      .with_mode('0755')
     }
 
     it { should contain_exec('composer-update') \
@@ -84,10 +80,9 @@ describe 'composer', :type => :class do
       .with_destination('/usr/local/bin/composer')
     }
 
-    it { should contain_exec('composer-fix-permissions') \
-      .with_command('chmod a+x composer') \
-      .with_user('will') \
-      .with_cwd('/usr/local/bin')
+    it { should contain_file('/usr/local/bin/composer') \
+      .with_owner('will') \
+      .with_mode('0755')
     }
 
     it { should_not contain_exec('composer-update') }
