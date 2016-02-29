@@ -60,6 +60,12 @@ executable:
       user => 'foo',
     }
 
+As the user is configurable, the group is changeable, too:
+
+    class { 'composer':
+      group => 'owner_group_name',
+    }
+
 It is also possible to specify a custom composer version:
 
     class { 'composer':

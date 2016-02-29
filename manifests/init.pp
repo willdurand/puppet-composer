@@ -15,7 +15,10 @@
 #   Whether to run `composer self-update`.
 #
 # [*version*]
-#   Custom composer version
+#   Custom composer version.
+#
+# [*group*]
+#   Owner group of the composer executable.
 #
 # == Example:
 #
@@ -33,7 +36,8 @@ class composer (
   $command_name = 'UNDEF',
   $user         = 'UNDEF',
   $auto_update  = false,
-  $version      = undef
+  $version      = undef,
+  $group        = undef,
 ) {
 
   include composer::params
@@ -68,6 +72,7 @@ class composer (
     ensure  => file,
     owner   => $composer_user,
     mode    => '0755',
+    group   => $group,
     require => Wget::Fetch['composer-install'],
   }
 

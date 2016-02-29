@@ -97,4 +97,14 @@ describe 'composer', :type => :class do
         .with_destination('/usr/local/bin/composer')
     }
   end
+
+  describe 'with a given group' do
+    let(:params) {{ :group => 'puppet' }}
+
+    it { should contain_file('/usr/local/bin/composer') \
+      .with_owner('root') \
+      .with_group('puppet') \
+      .with_mode('0755') \
+    }
+  end
 end
