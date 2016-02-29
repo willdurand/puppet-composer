@@ -36,41 +36,53 @@ Usage
 
 Include the `composer` class:
 
-    include composer
+``` puppet
+include composer
+```
 
 You can specify the command name you want to get, and the target directory (aka
 where to install Composer):
 
-    class { 'composer':
-      command_name => 'composer',
-      target_dir   => '/usr/local/bin'
-    }
+``` puppet
+class { '::composer':
+  command_name => 'composer',
+  target_dir   => '/usr/local/bin'
+}
+```
 
 You can also auto update composer by using the `auto_update` parameter. This will
 update Composer **only** when you will run Puppet.
 
-    class { 'composer':
-      auto_update => true
-    }
+``` puppet
+class { '::composer':
+  auto_update => true
+}
+```
 
 You can specify a particular `user` that will be the owner of the Composer
 executable:
 
-    class { 'composer':
-      user => 'foo',
-    }
+``` puppet
+class { '::composer':
+  user => 'foo',
+}
+```
 
 As the user is configurable, the group is changeable, too:
 
-    class { 'composer':
-      group => 'owner_group_name',
-    }
+``` puppet
+class { '::composer':
+  group => 'owner_group_name',
+}
+```
 
 It is also possible to specify a custom composer version:
 
-    class { 'composer':
-      version => '1.0.0-alpha11',
-    }
+``` puppet
+class { '::composer':
+  version => '1.0.0-alpha11',
+}
+```
 
 ### Global composer configs
 
@@ -127,18 +139,17 @@ As the home directory is configurable, it is possible to adjust the homedir to t
 Handle dependency order
 -----------------------
 
-Handle the PHP dependency with custom stages. Make composer wait for PHP. 
+Since this module does only handler the ``composer`` installation, but doesn't care about the ``php`` setup, you might run
+into errors due to a missing php instance.
+This can be fixed by using the ``require`` parameter:
 
-    class { 'composer':
-      command_name => 'composer',
-      target_dir   => '/usr/local/bin', 
-      auto_update => true, 
-      stage => last,
-    }
-    stage { 'last': }
-    Stage['main'] -> Stage['last']
+``` puppet
+class { '::composer':
+  require => Package['php5'],
+}
+```
 
-Custom stages reference: http://docs.puppetlabs.com/puppet/3/reference/lang_run_stages.html
+This will puppet tell to wait with the composer install process until the php package is installed.
 
 Running the tests
 -----------------
