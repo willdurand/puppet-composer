@@ -5,7 +5,7 @@ describe 'composer::clear_cache', :type => :define do
 
   describe 'clear cache with default params' do
     let(:params) {{
-      :name => 'vagrant',
+      :exec_user => 'vagrant',
     }}
 
     it { should contain_exec('composer-clear-cache-vagrant') \
@@ -17,8 +17,8 @@ describe 'composer::clear_cache', :type => :define do
 
   describe 'clear cache in custom home directory' do
     let(:params) {{
-      :name     => 'vagrant',
-      :home_dir => '/custom/home/vagrant'
+      :exec_user => 'vagrant',
+      :home_dir  => '/custom/home/vagrant'
     }}
 
     it { should contain_exec('composer-clear-cache-vagrant') \
