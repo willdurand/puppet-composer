@@ -119,20 +119,33 @@ Note that the config items must be structured like when using the CLI. This mean
 
     gitlab-oauth.gitlab.org
 
+Furthermore it is possible to configure the ``home_dir`` parameter as some users might use another one:
+
+``` puppet
+::composer::config { 'composer-vagrant-config':
+  ensure   => present,
+  user     => 'vagrant',
+  home_dir => '/custom/home/dir',
+}
+```
+
 ### Clear cache
 
 The composer dependency resolver is quite complex and there are issues where the cache hides actual conflicts that make reproduction of such issues a lot harder.
 In order to keep the cache clean, it is possible to clear the cache via puppet:
 
 ``` puppet
-::composer::clear_cache { 'user': }
+::composer::clear_cache { 'clear-cache-for-user':
+  exec_user => 'user',
+}
 ```
 
 As the home directory is configurable, it is possible to adjust the homedir to this resource:
 
 ``` puppet
-::composer::clear_cache { 'user':
+::composer::clear_cache { 'clear-cache-for-user':
   home_dir => '/custom/home/dir',
+  exec_user     => 'user',
 }
 ```
 

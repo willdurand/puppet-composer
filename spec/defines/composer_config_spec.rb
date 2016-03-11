@@ -50,4 +50,19 @@ describe 'composer::config', :type => :define do
       .with_environment('HOME=/home/vagrant')
     }
   end
+
+  describe 'it can adjust a custom `HOME` environment variable for config operations' do
+    let(:params) {{
+      :ensure  => 'present',
+      :user    => 'vagrant',
+      :configs => {
+        'process-timeout' => 500
+      },
+      :home_dir => '/custom/home/dir',
+    }}
+
+    it { should contain_composer__config__entry('process-timeout-vagrant-create') \
+      .with_custom_home_dir('/custom/home/dir') \
+    }
+  end
 end
