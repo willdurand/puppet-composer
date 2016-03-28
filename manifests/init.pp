@@ -20,6 +20,9 @@
 # [*group*]
 #   Owner group of the composer executable.
 #
+# [*download_timeout*]
+#   The timeout of the download for wget.
+#
 # == Example:
 #
 #   include composer
@@ -32,14 +35,16 @@
 #   }
 #
 class composer (
-  $target_dir   = 'UNDEF',
-  $command_name = 'UNDEF',
-  $user         = 'UNDEF',
-  $auto_update  = false,
-  $version      = undef,
-  $group        = undef,
+  $target_dir       = 'UNDEF',
+  $command_name     = 'UNDEF',
+  $user             = 'UNDEF',
+  $auto_update      = false,
+  $version          = undef,
+  $group            = undef,
+  $download_timeout = undef,
 ) {
 
+  ensure_packages(['wget'])
   include composer::params
 
   $composer_target_dir = $target_dir ? {
@@ -62,10 +67,14 @@ class composer (
     default => "https://getcomposer.org/download/${version}/composer.phar"
   }
 
-  wget::fetch { 'composer-install':
-    source      => $target,
-    destination => "${composer_target_dir}/${composer_command_name}",
-    execuser    => $composer_user,
+  $composer_full_path = "${composer_target_dir}/${composer_command_name}"
+  exec { 'composer-install':
+    command => "wget -O ${composer_full_path} ${target}",
+    cwd     => $target_dir,
+    user    => $composer_user,
+    path    => $::path,
+    unless  => "test -s '${composer_full_path}'",
+    timeout => $download_timeout,
   }
 
   file { "${composer_target_dir}/${composer_command_name}":
@@ -73,7 +82,7 @@ class composer (
     owner   => $composer_user,
     mode    => '0755',
     group   => $group,
-    require => Wget::Fetch['composer-install'],
+    require => Exec['composer-install'],
   }
 
   if $auto_update {

@@ -21,13 +21,10 @@ dependencies ([`puppet-wget`](https://github.com/maestrodev/puppet-wget)):
 
     git clone git://github.com/willdurand/puppet-composer.git modules/composer
 
-**Important:** the right `puppet-wget` module is
-[maestrodev/puppet-wget](https://github.com/maestrodev/puppet-wget). You should
-**not** use any other `puppet-wget` module. Example42's module won't work for
-instance. So, please, run the following command:
+### ``puppet-wget`` module
 
-    git clone git://github.com/maestrodev/puppet-wget.git modules/wget
-
+The ``puppet-wget`` module is required until version ``1.1.x``, but dropped in version ``1.2.x``.
+For further notes about this module, please have a look at the ``1.1`` docs.
 
 Usage
 -----
@@ -81,6 +78,15 @@ It is also possible to specify a custom composer version:
 ``` puppet
 class { '::composer':
   version => '1.0.0-alpha11',
+}
+```
+
+When having an infrastructure with slower connections, it is possible to increase the timeout in order to
+avoid running into errors because of a slow connection:
+
+``` puppet
+class { '::composer':
+  download_timeout => 100,
 }
 ```
 
