@@ -41,8 +41,15 @@ class composer (
   $auto_update      = false,
   $version          = undef,
   $group            = undef,
-  $download_timeout = undef,
+  $download_timeout = '0',
 ) {
+  validate_string($target_dir)
+  validate_string($command_name)
+  validate_string($user)
+  validate_bool($auto_update)
+  validate_string($version)
+  validate_string($group)
+  validate_string($download_timeout)
 
   ensure_packages(['wget'])
   include composer::params
@@ -69,10 +76,9 @@ class composer (
 
   $composer_full_path = "${composer_target_dir}/${composer_command_name}"
   exec { 'composer-install':
-    command => "wget -O ${composer_full_path} ${target}",
+    command => "/usr/bin/wget -O ${composer_full_path} ${target}",
     cwd     => $target_dir,
     user    => $composer_user,
-    path    => $::path,
     unless  => "test -s '${composer_full_path}'",
     timeout => $download_timeout,
   }
@@ -87,9 +93,8 @@ class composer (
 
   if $auto_update {
     exec { 'composer-update':
-      command     => "${composer_command_name} self-update",
+      command     => "${composer_full_path} self-update",
       environment => [ "COMPOSER_HOME=${composer_target_dir}" ],
-      path        => "/usr/bin:/bin:/usr/sbin:/sbin:${composer_target_dir}",
       user        => $composer_user,
       require     => File["${composer_target_dir}/${composer_command_name}"],
     }

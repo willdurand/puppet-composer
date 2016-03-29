@@ -15,16 +15,18 @@
 # }
 #
 define composer::clear_cache($exec_user, $home_dir = undef) {
+  validate_string($home_dir)
+  validate_string($exec_user)
+
   $home = $home_dir ? {
     undef   => "/home/${exec_user}",
     default => $home_dir
   }
 
   exec { "composer-clear-cache-${exec_user}":
-    command     => 'composer clear-cache',
+    command     => "${::composer::composer_full_path} clear-cache",
     user        => $exec_user,
     environment => "HOME=${home}",
-    path        => $::path,
     require     => Class['::composer'],
   }
 }

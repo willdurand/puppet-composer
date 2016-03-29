@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe 'composer::clear_cache', :type => :define do
-  let(:title) { 'composer::clear_cache' }
+  let(:title) { '::composer::clear_cache' }
+  let(:pre_condition) { 'class { "::composer": }' }
 
   describe 'clear cache with default params' do
     let(:params) {{
@@ -9,7 +10,7 @@ describe 'composer::clear_cache', :type => :define do
     }}
 
     it { should contain_exec('composer-clear-cache-vagrant') \
-      .with_command('composer clear-cache') \
+      .with_command('/usr/local/bin/composer clear-cache') \
       .with_user('vagrant') \
       .with_environment('HOME=/home/vagrant')
     }
@@ -22,7 +23,7 @@ describe 'composer::clear_cache', :type => :define do
     }}
 
     it { should contain_exec('composer-clear-cache-vagrant') \
-      .with_command('composer clear-cache') \
+      .with_command('/usr/local/bin/composer clear-cache') \
       .with_user('vagrant') \
       .with_environment('HOME=/custom/home/vagrant')
     }

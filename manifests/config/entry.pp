@@ -18,6 +18,12 @@
 #   Home directory (in some cases it should be configurable).
 #
 define composer::config::entry($entry, $user, $ensure, $value = undef, $custom_home_dir = undef) {
+  validate_string($entry)
+  validate_string($user)
+  validate_string($value)
+  validate_string($ensure)
+  validate_string($home_dir)
+
   if $caller_module_name != $module_name {
     warning('::composer::config::entry is not meant for public use!')
   }
@@ -27,7 +33,7 @@ define composer::config::entry($entry, $user, $ensure, $value = undef, $custom_h
     default => $custom_home_dir,
   }
 
-  $cmd_template = "${::composer::composer_command_name} config -g"
+  $cmd_template = "${::composer::composer_full_path} config -g"
   $cmd          = $ensure ? {
     present => "${cmd_template} ${entry} ${value}",
     default => "${cmd_template} --unset ${entry}"

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'composer::config::entry', :type => :define do
-  let(:title) { 'composer::config::entry' }
+  let(:title) { '::composer::config::entry' }
   let(:pre_condition) { 'class { "::composer": }' }
 
   describe 'it installs the parameters properly' do
@@ -13,7 +13,7 @@ describe 'composer::config::entry', :type => :define do
     }}
 
     it { should contain_exec('composer-config-entry-\'process-timeout\'-vagrant-present') \
-      .with_command('composer config -g \'process-timeout\' 500') \
+      .with_command('/usr/local/bin/composer config -g \'process-timeout\' 500') \
       .with_user('vagrant') \
       .with_environment('HOME=/home/vagrant')
     }
@@ -28,7 +28,7 @@ describe 'composer::config::entry', :type => :define do
     }}
 
     it { should contain_exec('composer-config-entry-\'process-timeout\'-vagrant-absent') \
-      .with_command('composer config -g --unset \'process-timeout\'') \
+      .with_command('/usr/local/bin/composer config -g --unset \'process-timeout\'') \
       .with_user('vagrant') \
       .with_environment('HOME=/home/vagrant')
     }

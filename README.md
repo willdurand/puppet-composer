@@ -86,7 +86,7 @@ avoid running into errors because of a slow connection:
 
 ``` puppet
 class { '::composer':
-  download_timeout => 100,
+  download_timeout => '100',
 }
 ```
 
