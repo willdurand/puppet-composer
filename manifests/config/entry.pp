@@ -20,9 +20,8 @@
 define composer::config::entry($entry, $user, $ensure, $value = undef, $custom_home_dir = undef) {
   validate_string($entry)
   validate_string($user)
-  validate_string($value)
   validate_string($ensure)
-  validate_string($home_dir)
+  validate_string($custom_home_dir)
 
   if $caller_module_name != $module_name {
     warning('::composer::config::entry is not meant for public use!')

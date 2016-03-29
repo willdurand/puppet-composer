@@ -17,7 +17,7 @@ running the following command:
     puppet module install willdurand/composer
 
 Otherwise, clone this repository and make sure to install the proper
-dependencies ([`puppet-wget`](https://github.com/maestrodev/puppet-wget)):
+dependencies ([`puppetlabs-stdlib`](https://github.com/puppetlabs/puppetlabs-stdlib)):
 
     git clone git://github.com/willdurand/puppet-composer.git modules/composer
 
@@ -25,6 +25,10 @@ dependencies ([`puppet-wget`](https://github.com/maestrodev/puppet-wget)):
 
 The ``puppet-wget`` module is required until version ``1.1.x``, but dropped in version ``1.2.x``.
 For further notes about this module, please have a look at the ``1.1`` docs.
+
+In ``1.2`` the ``puppetlabs-stdlib`` dependency has been added in order to
+gain lots of puppet features located in this module and improve the type
+validation in the manifests.
 
 Usage
 -----
