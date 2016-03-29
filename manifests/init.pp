@@ -77,7 +77,7 @@ class composer (
   exec { 'composer-install':
     command => "/usr/bin/wget -O ${composer_full_path} ${target}",
     user    => $composer_user,
-    unless  => "test -s '${composer_full_path}'",
+    creates => $composer_full_path,
     timeout => $download_timeout,
   }
 
