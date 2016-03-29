@@ -6,7 +6,7 @@ describe 'composer', :type => :class do
   it { should contain_exec('composer-install') \
     .with_command('/usr/bin/wget -O /usr/local/bin/composer https://getcomposer.org/composer.phar') \
     .with_user('root') \
-    .with_unless('test -s \'/usr/local/bin/composer\'') \
+    .with_creates('/usr/local/bin/composer')
   }
 
   it { should contain_file('/usr/local/bin/composer') \
