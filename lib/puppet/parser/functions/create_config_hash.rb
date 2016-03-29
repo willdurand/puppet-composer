@@ -9,7 +9,7 @@ def create_hash(value, user, ensure_entry, entry, home_dir)
     hash[:value] = value
   end
 
-  unless home_dir.nil?
+  unless home_dir.empty?
     hash[:custom_home_dir] = home_dir
   end
 
@@ -22,7 +22,7 @@ module Puppet::Parser::Functions
     user         = args[1].to_s
     ensure_entry = args[2].to_s
     hash         = {}
-    home_dir     = args[3].nil? ? nil : args[3].to_s
+    home_dir     = args[3].nil? ? '' : args[3].to_s
 
     if configs.is_a? Hash
       configs.each do |entry, value|

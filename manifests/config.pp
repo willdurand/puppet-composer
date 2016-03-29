@@ -32,6 +32,8 @@ define composer::config(
   $configs  = {},
   $home_dir = undef,
 ) {
+  validate_string($user)
+
   $composer_user = $user ? {
     undef   => $::composer::params::user,
     default => $user
