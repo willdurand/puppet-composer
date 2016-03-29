@@ -49,7 +49,6 @@ class composer (
   validate_bool($auto_update)
   validate_string($version)
   validate_string($group)
-  validate_string($download_timeout)
 
   ensure_packages(['wget'])
   include composer::params
@@ -77,7 +76,6 @@ class composer (
   $composer_full_path = "${composer_target_dir}/${composer_command_name}"
   exec { 'composer-install':
     command => "/usr/bin/wget -O ${composer_full_path} ${target}",
-    cwd     => $target_dir,
     user    => $composer_user,
     unless  => "test -s '${composer_full_path}'",
     timeout => $download_timeout,
