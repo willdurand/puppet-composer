@@ -38,10 +38,19 @@ define composer::config::entry($entry, $user, $ensure, $value = undef, $custom_h
     default => "${cmd_template} --unset ${entry}"
   }
 
+  $unless = $ensure ? {
+    present => "/usr/bin/test `${cmd_template} ${entry}` = ${value}",
+
+    # NOTE: in this case the parameter will be resetted to the default value so it cannot be checked properly
+    # when to execute the command to remove the command or not.
+    default => undef,
+  }
+
   exec { "composer-config-entry-${entry}-${user}-${ensure}":
     command     => $cmd,
     user        => $user,
     require     => Class['::composer'],
     environment => "HOME=${home_dir}",
+    unless      => $unless
   }
 }
