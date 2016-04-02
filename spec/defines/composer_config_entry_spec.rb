@@ -15,7 +15,8 @@ describe 'composer::config::entry', :type => :define do
     it { should contain_exec('composer-config-entry-\'process-timeout\'-vagrant-present') \
       .with_command('/usr/local/bin/composer config -g \'process-timeout\' 500') \
       .with_user('vagrant') \
-      .with_environment('HOME=/home/vagrant')
+      .with_environment('HOME=/home/vagrant') \
+      .with_unless('/usr/bin/test `/usr/local/bin/composer config -g \'process-timeout\'` = 500') \
     }
   end
 
