@@ -79,6 +79,7 @@ class composer (
     user    => $composer_user,
     creates => $composer_full_path,
     timeout => $download_timeout,
+    require => Package['wget'],
   }
 
   file { "${composer_target_dir}/${composer_command_name}":
