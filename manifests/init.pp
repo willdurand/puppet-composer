@@ -50,7 +50,9 @@ class composer (
   validate_string($version)
   validate_string($group)
 
-  ensure_packages(['wget'])
+  ensure_packages(['wget'], {
+    ensure => installed,
+  })
   include composer::params
 
   $composer_target_dir = $target_dir ? {
