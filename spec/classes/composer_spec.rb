@@ -110,4 +110,10 @@ describe 'composer', :type => :class do
       .with_timeout('25') \
     }
   end
+
+  describe 'with build_deps=false' do
+    let(:params) {{ :build_deps => false }}
+
+    it { should_not contain_package('wget') }
+  end
 end

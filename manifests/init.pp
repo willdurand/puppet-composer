@@ -42,6 +42,7 @@ class composer (
   $version          = undef,
   $group            = undef,
   $download_timeout = '0',
+  $build_deps       = true,
 ) {
   validate_string($target_dir)
   validate_string($command_name)
@@ -49,8 +50,12 @@ class composer (
   validate_bool($auto_update)
   validate_string($version)
   validate_string($group)
+  validate_bool($build_deps)
 
-  ensure_packages(['wget'])
+  if $build_deps {
+    ensure_packages(['wget'])
+  }
+
   include composer::params
 
   $composer_target_dir = $target_dir ? {

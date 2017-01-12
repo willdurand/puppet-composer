@@ -94,6 +94,18 @@ class { '::composer':
 }
 ```
 
+### Repairing duplicated packages
+
+As described in [#44](https://github.com/willdurand/puppet-composer/issues/44) in several cases it's possible that the catalogue crashes because of duplicate package declarations.
+
+In order to skip the installation of `wget` from this module, you can use the `build_deps` argument:
+
+``` puppet
+class { '::composer':
+  build_deps => false,
+}
+```
+
 ### Global composer configs
 
 One feature of composer are [global configuration parameters](https://getcomposer.org/doc/06-config.md#config).
