@@ -1,6 +1,6 @@
 {
   "name": "willdurand-composer",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "author": "William Durand",
   "license": "MIT",
   "summary": "This module installs Composer, a dependency manager for PHP.",
