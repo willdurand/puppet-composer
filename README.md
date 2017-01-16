@@ -30,6 +30,15 @@ In ``1.2`` the ``puppetlabs-stdlib`` dependency has been added in order to
 gain lots of puppet features located in this module and improve the type
 validation in the manifests.
 
+### Installing dependencies locally
+
+In order to avoid messing up your global `gem` installation and installing the ruby dependencies during the dev phase,
+it's possible to install the dependencies in a local path which is ignored by `.gitignore` by default:
+
+``` shell
+BUNDLE_GEMFILE=.gemfile bundle install --path vendor/bundle
+```
+
 Usage
 -----
 
