@@ -6,7 +6,7 @@ describe 'composer', :type => :class do
   it { should contain_exec('composer-install') \
     .with_command('/usr/bin/wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/composer.phar') \
     .with_user('root') \
-    .with_creates('/usr/local/bin/composer')
+    .with_unless('/usr/bin/test -f /usr/local/bin/composer')
   }
 
   it { should contain_file('/usr/local/bin/composer') \
@@ -15,7 +15,6 @@ describe 'composer', :type => :class do
   }
 
   it { should_not contain_exec('composer-update') }
-
   describe 'with a given target_dir' do
     let(:params) {{ :target_dir => '/usr/bin' }}
 
@@ -89,6 +88,7 @@ describe 'composer', :type => :class do
     it { should contain_exec('composer-install') \
       .with_command('/usr/bin/wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/download/1.0.0-alpha11/composer.phar') \
       .with_user('root') \
+      .with_unless('/usr/local/bin/composer -V |grep -q 1.0.0-alpha11')
     }
   end
 

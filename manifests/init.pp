@@ -79,10 +79,16 @@ class composer (
   }
 
   $composer_full_path = "${composer_target_dir}/${composer_command_name}"
+
+  $unless = $version ? {
+    undef   => "/usr/bin/test -f ${composer_full_path}",
+    default => "${composer_full_path} -V |grep -q $version"
+  }
+
   exec { 'composer-install':
     command => "/usr/bin/wget --no-check-certificate -O ${composer_full_path} ${target}",
     user    => $composer_user,
-    creates => $composer_full_path,
+    unless  => $unless,
     timeout => $download_timeout,
     require => Package['wget'],
   }
