@@ -88,7 +88,7 @@ describe 'composer', :type => :class do
     it { should contain_exec('composer-install') \
       .with_command('/usr/bin/wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/download/1.0.0-alpha11/composer.phar') \
       .with_user('root') \
-      .with_unless('/usr/local/bin/composer -V |grep -q 1.0.0-alpha11')
+      .with_unless('/usr/bin/test -f /usr/local/bin/composer && /usr/local/bin/composer -V |grep -q 1.0.0-alpha11')
     }
   end
 

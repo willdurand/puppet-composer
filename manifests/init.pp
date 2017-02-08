@@ -82,7 +82,7 @@ class composer (
 
   $unless = $version ? {
     undef   => "/usr/bin/test -f ${composer_full_path}",
-    default => "${composer_full_path} -V |grep -q ${version}"
+    default => "/usr/bin/test -f ${composer_full_path} && ${composer_full_path} -V |grep -q ${version}"
   }
 
   exec { 'composer-install':
