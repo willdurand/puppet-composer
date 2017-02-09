@@ -86,11 +86,12 @@ class composer (
   }
 
   exec { 'composer-install':
-    command => "/usr/bin/wget --no-check-certificate -O ${composer_full_path} ${target}",
-    user    => $composer_user,
-    unless  => $unless,
-    timeout => $download_timeout,
-    require => Package['wget'],
+    command     => "/usr/bin/wget --no-check-certificate -O ${composer_full_path} ${target}",
+    environment => [ "COMPOSER_HOME=${composer_target_dir}" ],
+    user        => $composer_user,
+    unless      => $unless,
+    timeout     => $download_timeout,
+    require     => Package['wget'],
   }
 
   file { "${composer_target_dir}/${composer_command_name}":
