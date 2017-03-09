@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
     name = "willdurand-puppet-composer-env-gems";
 
     gemfile  = ./Gemfile;
-    lockfile = ./Gemfile.lock;
+    lockfile = ./Gemfile-Nix.lock;
     gemset   = ./gemset.nix;
 
     inherit ruby;
