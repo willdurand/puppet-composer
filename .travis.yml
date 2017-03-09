@@ -16,8 +16,6 @@ env:
 
 script: "rake test"
 
-gemfile: .gemfile
-
 sudo: false
 
 matrix:

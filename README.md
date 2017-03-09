@@ -36,7 +36,7 @@ In order to avoid messing up your global `gem` installation and installing the r
 it's possible to install the dependencies in a local path which is ignored by `.gitignore` by default:
 
 ``` shell
-BUNDLE_GEMFILE=.gemfile bundle install --path vendor/bundle
+bundle install --path vendor/bundle
 ```
 
 Usage
@@ -200,11 +200,11 @@ Running the tests
 
 Install the dependencies using [Bundler](http://gembundler.com):
 
-    BUNDLE_GEMFILE=.gemfile bundle install
+    bundle install
 
 Run the following command:
 
-    BUNDLE_GEMFILE=.gemfile bundle exec rake spec
+    bundle exec rake spec
 
 
 License
