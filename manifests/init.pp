@@ -35,15 +35,15 @@
 #   }
 #
 class composer (
-  $target_dir       = 'UNDEF',
-  $command_name     = 'UNDEF',
-  $user             = 'UNDEF',
+  $target_dir       = $::composer::params::target_dir,
+  $command_name     = $::composer::params::command_name,
+  $user             = $::composer::params::user,
   $auto_update      = false,
   $version          = undef,
   $group            = undef,
   $download_timeout = '0',
   $build_deps       = true,
-) {
+) inherits ::composer::params {
   validate_string($target_dir)
   validate_string($command_name)
   validate_string($user)
@@ -58,27 +58,12 @@ class composer (
 
   include composer::params
 
-  $composer_target_dir = $target_dir ? {
-    'UNDEF' => $::composer::params::target_dir,
-    default => $target_dir
-  }
-
-  $composer_command_name = $command_name ? {
-    'UNDEF' => $::composer::params::command_name,
-    default => $command_name
-  }
-
-  $composer_user = $user ? {
-    'UNDEF' => $::composer::params::user,
-    default => $user
-  }
-
   $target = $version ? {
     undef   => $::composer::params::phar_location,
     default => "https://getcomposer.org/download/${version}/composer.phar"
   }
 
-  $composer_full_path = "${composer_target_dir}/${composer_command_name}"
+  $composer_full_path = "${target_dir}/${command_name}"
 
   $unless = $version ? {
     undef   => "/usr/bin/test -f ${composer_full_path}",
@@ -87,16 +72,16 @@ class composer (
 
   exec { 'composer-install':
     command     => "/usr/bin/wget --no-check-certificate -O ${composer_full_path} ${target}",
-    environment => [ "COMPOSER_HOME=${composer_target_dir}" ],
-    user        => $composer_user,
+    environment => [ "COMPOSER_HOME=${target_dir}" ],
+    user        => $user,
     unless      => $unless,
     timeout     => $download_timeout,
     require     => Package['wget'],
   }
 
-  file { "${composer_target_dir}/${composer_command_name}":
+  file { "${target_dir}/${command_name}":
     ensure  => file,
-    owner   => $composer_user,
+    owner   => $user,
     mode    => '0755',
     group   => $group,
     require => Exec['composer-install'],
@@ -105,9 +90,9 @@ class composer (
   if $auto_update {
     exec { 'composer-update':
       command     => "${composer_full_path} self-update",
-      environment => [ "COMPOSER_HOME=${composer_target_dir}" ],
-      user        => $composer_user,
-      require     => File["${composer_target_dir}/${composer_command_name}"],
+      environment => [ "COMPOSER_HOME=${target_dir}" ],
+      user        => $user,
+      require     => File["${target_dir}/${command_name}"],
     }
   }
 }
