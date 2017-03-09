@@ -207,6 +207,11 @@ Run the following command:
     bundle exec rake spec
 
 
+Development with `nix`
+----------------------
+
+If you're using `nix` as dependency manager, you can create a custom shell which contains all dependencies declared in `Gemfile.lock` by running `nix-shell` in the root directory.
+
 License
 -------
 
