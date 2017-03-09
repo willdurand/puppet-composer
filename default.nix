@@ -5,7 +5,6 @@ stdenv.mkDerivation rec {
 
   buildInputs =
   [
-    vagrant
     (import ./env.nix)
   ];
 }
