@@ -87,12 +87,12 @@ class composer (
     require => Exec['composer-install'],
   }
 
-  if $auto_update {
-    exec { 'composer-update':
-      command     => "${composer_full_path} self-update",
-      environment => [ "COMPOSER_HOME=${target_dir}" ],
-      user        => $user,
-      require     => File["${target_dir}/${command_name}"],
-    }
+  cron { 'composer-update':
+    ensure      => $auto_update ? { true => present, false => absent },
+    command     => "env COMPOSER_HOME=${composer_target_dir} ${composer_full_path} self-update -q",
+    hour        => 0,
+    minute      => fqdn_rand(60),
+    user        => $composer_user,
+    require     => File["${composer_target_dir}/${composer_command_name}"],
   }
 }
