@@ -60,8 +60,8 @@ describe 'composer', :type => :class do
       .with_mode('0755')
     }
 
-    it { should contain_exec('composer-update') \
-      .with_command('/usr/local/bin/composer self-update') \
+    it { should contain_cron('composer-update') \
+      .with_command('COMPOSER_HOME=/usr/local/bin /usr/local/bin/composer self-update -q') \
       .with_user('root') \
     }
   end
