@@ -111,9 +111,9 @@ describe 'composer', :type => :class do
     }
   end
 
+  # confirm evaluation without built dependencies
   describe 'with build_deps=false' do
     let(:params) {{ :build_deps => false }}
-
-    it { should_not contain_package('wget') }
+    let(:pre_condition) { 'package { ["wget"]: }' }
   end
 end

@@ -1,6 +1,6 @@
 {
   "name": "willdurand-composer",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "author": "William Durand",
   "license": "MIT",
   "summary": "This module installs Composer, a dependency manager for PHP.",
@@ -15,8 +15,9 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "12.04",
-        "14.04"
+        "14.04",
+        "16.04",
+        "18.04"
       ]
     },
     {
@@ -29,8 +30,9 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "6",
-        "7"
+        "7",
+        "8",
+        "9"
       ]
     }
   ],
@@ -49,7 +51,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">=2.7.20 <5.0.0"
+      "version_requirement": ">=2.7.20 <6.0.0"
     }
   ],
   "dependencies": [
