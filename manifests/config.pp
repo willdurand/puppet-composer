@@ -28,11 +28,10 @@
 #
 define composer::config(
   $ensure   = present,
-  $user     = undef,
+  Optional[String] $user     = undef,
   $configs  = {},
   $home_dir = undef,
 ) {
-  validate_string($user)
 
   $composer_user = $user ? {
     undef   => $::composer::params::user,

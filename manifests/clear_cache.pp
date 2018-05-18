@@ -14,9 +14,7 @@
 #   exec_user => 'vagrant',
 # }
 #
-define composer::clear_cache($exec_user, $home_dir = undef) {
-  validate_string($home_dir)
-  validate_string($exec_user)
+define composer::clear_cache(String $exec_user, Optional[String] $home_dir = undef) {
 
   $home = $home_dir ? {
     undef   => "/home/${exec_user}",
