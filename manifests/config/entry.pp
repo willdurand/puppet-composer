@@ -17,11 +17,13 @@
 # [*custom_home_dir*]
 #   Home directory (in some cases it should be configurable).
 #
-define composer::config::entry($entry, $user, $ensure, $value = undef, $custom_home_dir = undef) {
-  validate_string($entry)
-  validate_string($user)
-  validate_string($ensure)
-  validate_string($custom_home_dir)
+define composer::config::entry(
+  String $entry,
+  String $user,
+  String $ensure,
+  $value = undef,
+  Optional[String] $custom_home_dir = undef
+  ) {
 
   if $caller_module_name != $module_name {
     warning('::composer::config::entry is not meant for public use!')

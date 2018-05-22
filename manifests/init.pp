@@ -35,22 +35,15 @@
 #   }
 #
 class composer (
-  $target_dir       = $::composer::params::target_dir,
-  $command_name     = $::composer::params::command_name,
-  $user             = $::composer::params::user,
-  $auto_update      = false,
-  $version          = undef,
-  $group            = undef,
+  String $target_dir       = $::composer::params::target_dir,
+  String $command_name     = $::composer::params::command_name,
+  String $user             = $::composer::params::user,
+  Boolean $auto_update     = false,
+  Optional[String] $version          = undef,
+  Optional[String] $group            = undef,
   $download_timeout = '0',
-  $build_deps       = true,
+  Boolean $build_deps       = true,
 ) inherits ::composer::params {
-  validate_string($target_dir)
-  validate_string($command_name)
-  validate_string($user)
-  validate_bool($auto_update)
-  validate_string($version)
-  validate_string($group)
-  validate_bool($build_deps)
 
   if $build_deps {
     ensure_packages(['wget'])
