@@ -27,10 +27,10 @@
 #   }
 #
 define composer::config(
-  $ensure   = present,
-  Optional[String] $user     = undef,
-  $configs  = {},
-  $home_dir = undef,
+  $ensure                = present,
+  Optional[String] $user = undef,
+  $configs               = {},
+  $home_dir              = undef,
 ) {
 
   $composer_user = $user ? {

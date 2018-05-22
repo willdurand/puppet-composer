@@ -35,13 +35,13 @@
 #   }
 #
 class composer (
-  String $target_dir       = $::composer::params::target_dir,
-  String $command_name     = $::composer::params::command_name,
-  String $user             = $::composer::params::user,
-  Boolean $auto_update     = false,
-  Optional[String] $version          = undef,
-  Optional[String] $group            = undef,
-  $download_timeout = '0',
+  String $target_dir        = $::composer::params::target_dir,
+  String $command_name      = $::composer::params::command_name,
+  String $user              = $::composer::params::user,
+  Boolean $auto_update      = false,
+  Optional[String] $version = undef,
+  Optional[String] $group   = undef,
+  $download_timeout         = '0',
   Boolean $build_deps       = true,
 ) inherits ::composer::params {
 
