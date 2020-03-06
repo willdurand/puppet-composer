@@ -38,5 +38,5 @@ define composer::config(
     default => $user
   }
 
-  create_resources('composer::config::entry', create_config_hash($configs, $composer_user, $ensure, $home_dir))
+  create_resources('composer::config::entry', composer::create_config_hash($configs, $composer_user, $ensure, $home_dir))
 }

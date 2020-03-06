@@ -1,23 +1,29 @@
-def create_hash(value, user, ensure_entry, entry, home_dir)
-  hash = {
-    :user   => user,
-    :ensure => ensure_entry,
-    :entry  => entry
-  }
-
-  unless value.nil?
-    hash[:value] = value
+Puppet::Functions.create_function(:'composer::create_config_hash') do
+  dispatch :default_impl do
+    # Call the method named 'default_impl' when this is matched
+    # Port this to match individual params for better type safety
+    repeated_param 'Any', :args
   end
 
-  unless home_dir.empty?
-    hash[:custom_home_dir] = home_dir
+  def create_hash(value, user, ensure_entry, entry, home_dir)
+    hash = {
+      :user   => user,
+      :ensure => ensure_entry,
+      :entry  => entry
+    }
+
+    unless value.nil?
+      hash[:value] = value
+    end
+
+    unless home_dir.empty?
+      hash[:custom_home_dir] = home_dir
+    end
+
+    hash
   end
 
-  hash
-end
-
-module Puppet::Parser::Functions
-  newfunction(:create_config_hash, :type => :rvalue) do |args|
+  def default_impl(*args)
     configs      = args[0]
     user         = args[1].to_s
     ensure_entry = args[2].to_s

@@ -1,10 +1,6 @@
 require 'spec_helper'
 
-describe 'create_config_hash' do
-  before(:each) do
-    Puppet::Parser::Functions.function(:node_default_instance_directory)
-  end
-
+describe 'composer::create_config_hash' do
   describe 'build hashes for config generation' do
     it do
       should run.with_params({
