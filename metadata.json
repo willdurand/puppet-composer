@@ -1,7 +1,7 @@
 {
   "name": "willdurand-composer",
   "version": "1.2.7",
-  "author": "William Durand",
+  "author": "willdurand",
   "license": "MIT",
   "summary": "This module installs Composer, a dependency manager for PHP.",
   "source": "https://github.com/willdurand/puppet-composer",
