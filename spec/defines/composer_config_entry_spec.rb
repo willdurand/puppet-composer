@@ -16,7 +16,7 @@ describe 'composer::config::entry', :type => :define do
       .with_command('/usr/local/bin/composer config -g \'process-timeout\' 500') \
       .with_user('vagrant') \
       .with_environment('HOME=/home/vagrant') \
-      .with_unless('/usr/bin/test `/usr/local/bin/composer config -g \'process-timeout\'` = 500') \
+      .with_unless('test `/usr/local/bin/composer config -g \'process-timeout\'` = 500') \
     }
   end
 

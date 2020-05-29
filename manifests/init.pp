@@ -59,12 +59,13 @@ class composer (
   $composer_full_path = "${target_dir}/${command_name}"
 
   $unless = $version ? {
-    undef   => "/usr/bin/test -f ${composer_full_path}",
-    default => "/usr/bin/test -f ${composer_full_path} && ${composer_full_path} -V |grep -q ${version}"
+    undef   => "test -f ${composer_full_path}",
+    default => "test -f ${composer_full_path} && ${composer_full_path} -V |grep -q ${version}"
   }
 
   exec { 'composer-install':
-    command     => "/usr/bin/wget --no-check-certificate -O ${composer_full_path} ${target}",
+    command     => "wget --no-check-certificate -O ${composer_full_path} ${target}",
+    path        => '/usr/bin:/bin:/usr/local/bin:/usr/sbin:/sbin:/usr/local/sbin',
     environment => [ "COMPOSER_HOME=${target_dir}" ],
     user        => $user,
     unless      => $unless,

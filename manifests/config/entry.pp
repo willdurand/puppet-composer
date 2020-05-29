@@ -41,7 +41,7 @@ define composer::config::entry(
   }
 
   $unless = $ensure ? {
-    present => "/usr/bin/test `${cmd_template} ${entry}` = ${value}",
+    present => "test `${cmd_template} ${entry}` = ${value}",
 
     # NOTE: in this case the parameter will be resetted to the default value so it cannot be checked properly
     # when to execute the command to remove the command or not.
@@ -50,6 +50,7 @@ define composer::config::entry(
 
   exec { "composer-config-entry-${entry}-${user}-${ensure}":
     command     => $cmd,
+    path        => '/usr/bin:/bin:/usr/local/bin:/usr/sbin:/sbin:/usr/local/sbin',
     user        => $user,
     require     => Class['::composer'],
     environment => "HOME=${home_dir}",

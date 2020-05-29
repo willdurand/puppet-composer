@@ -34,6 +34,9 @@
         "8",
         "9"
       ]
+    },
+    {
+      "operatingsystem": "FreeBSD"
     }
   ],
   "requirements": [
