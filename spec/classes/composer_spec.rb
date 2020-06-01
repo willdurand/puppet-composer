@@ -4,9 +4,9 @@ describe 'composer', :type => :class do
   let(:title) { '::composer' }
 
   it { should contain_exec('composer-install') \
-    .with_command('/usr/bin/wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/composer-stable.phar') \
+    .with_command('wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/composer-stable.phar') \
     .with_user('root') \
-    .with_unless('/usr/bin/test -f /usr/local/bin/composer')
+    .with_unless('test -f /usr/local/bin/composer')
   }
 
   it { should contain_file('/usr/local/bin/composer') \
@@ -19,7 +19,7 @@ describe 'composer', :type => :class do
     let(:params) {{ :target_dir => '/usr/bin' }}
 
     it { should contain_exec('composer-install') \
-      .with_command('/usr/bin/wget --no-check-certificate -O /usr/bin/composer https://getcomposer.org/composer-stable.phar') \
+      .with_command('wget --no-check-certificate -O /usr/bin/composer https://getcomposer.org/composer-stable.phar') \
       .with_user('root') \
     }
 
@@ -35,7 +35,7 @@ describe 'composer', :type => :class do
     let(:params) {{ :command_name => 'c' }}
 
     it { should contain_exec('composer-install') \
-      .with_command('/usr/bin/wget --no-check-certificate -O /usr/local/bin/c https://getcomposer.org/composer-stable.phar') \
+      .with_command('wget --no-check-certificate -O /usr/local/bin/c https://getcomposer.org/composer-stable.phar') \
       .with_user('root') \
     }
 
@@ -51,7 +51,7 @@ describe 'composer', :type => :class do
     let(:params) {{ :auto_update => true }}
 
     it { should contain_exec('composer-install') \
-      .with_command('/usr/bin/wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/composer-stable.phar') \
+      .with_command('wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/composer-stable.phar') \
       .with_user('root') \
     }
 
@@ -70,7 +70,7 @@ describe 'composer', :type => :class do
     let(:params) {{ :user => 'will' }}
 
     it { should contain_exec('composer-install') \
-      .with_command('/usr/bin/wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/composer-stable.phar') \
+      .with_command('wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/composer-stable.phar') \
       .with_user('will') \
     }
 
@@ -86,9 +86,9 @@ describe 'composer', :type => :class do
     let(:params) {{ :version => '1.0.0-alpha11' }}
 
     it { should contain_exec('composer-install') \
-      .with_command('/usr/bin/wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/download/1.0.0-alpha11/composer.phar') \
+      .with_command('wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/download/1.0.0-alpha11/composer.phar') \
       .with_user('root') \
-      .with_unless('/usr/bin/test -f /usr/local/bin/composer && /usr/local/bin/composer -V |grep -q 1.0.0-alpha11')
+      .with_unless('test -f /usr/local/bin/composer && /usr/local/bin/composer -V |grep -q 1.0.0-alpha11')
     }
   end
 
@@ -106,7 +106,7 @@ describe 'composer', :type => :class do
     let(:params) {{ :download_timeout => '25' }}
 
     it { should contain_exec('composer-install') \
-      .with_command('/usr/bin/wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/composer-stable.phar') \
+      .with_command('wget --no-check-certificate -O /usr/local/bin/composer https://getcomposer.org/composer-stable.phar') \
       .with_timeout('25') \
     }
   end
