@@ -66,7 +66,7 @@ class composer (
   exec { 'composer-install':
     command     => "wget --no-check-certificate -O ${composer_full_path} ${target}",
     path        => '/usr/bin:/bin:/usr/local/bin:/usr/sbin:/sbin:/usr/local/sbin',
-    environment => [ "COMPOSER_HOME=${target_dir}" ],
+    environment => [ "COMPOSER_HOME=${target_dir}", "COMPOSER_ALLOW_SUPERUSER=1" ],
     user        => $user,
     unless      => $unless,
     timeout     => $download_timeout,
