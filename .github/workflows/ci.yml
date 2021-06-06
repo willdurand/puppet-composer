@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        puppet: ['5.5.22', '6.22.1', '7.7.0']
+        puppet: ['6.22.1', '7.7.0']
     env:
       PUPPET_VERSION: ${{ matrix.puppet }}
     steps:
