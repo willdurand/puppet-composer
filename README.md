@@ -1,8 +1,7 @@
 puppet-composer
 ===============
 
-[![Build
-Status](https://secure.travis-ci.org/willdurand/puppet-composer.png)](http://travis-ci.org/willdurand/puppet-composer)
+[![Build Status](https://github.com/willdurand/puppet-composer/actions/workflows/ci.yml/badge.svg)](https://github.com/willdurand/puppet-composer/actions)
 
 This module installs [Composer](http://getcomposer.org/), a dependency manager
 for PHP.
