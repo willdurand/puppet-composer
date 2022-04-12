@@ -18,7 +18,7 @@ running the following command:
 Otherwise, clone this repository and make sure to install the proper
 dependencies ([`puppetlabs-stdlib`](https://github.com/puppetlabs/puppetlabs-stdlib), [`puppetlabs-cron_core`](https://github.com/puppetlabs/puppetlabs-cron_core)):
 
-    git clone git://github.com/willdurand/puppet-composer.git modules/composer
+    git clone https://github.com/willdurand/puppet-composer.git modules/composer
 
 ### ``puppet-wget`` module
 
