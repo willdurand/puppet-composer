@@ -2,5 +2,5 @@ fixtures:
   symlinks:
     composer: "#{source_dir}"
   repositories:
-    stdlib: git://github.com/puppetlabs/puppetlabs-stdlib.git
-    cron_core: git://github.com/puppetlabs/puppetlabs-cron_core.git
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
+    cron_core: https://github.com/puppetlabs/puppetlabs-cron_core.git
